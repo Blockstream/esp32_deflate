@@ -1,0 +1,17 @@
+menu "deflate configuration"
+
+    config DEFLATE_BUF_UNCOMPRESSED_SIZE
+        int "Buffer used in deflate for decompressed data, in bytes"
+        default 32768
+        range 32768 262144
+        help
+            Buffer for deflate decompression
+
+    config DEFLATE_BUF_COMPRESSED_SIZE
+        int "Buffer used in deflate for decompressed data, in bytes"
+        default 4096
+        range 4096 262144
+        help
+            Internal buffer, should be as big as the compressed data buffer
+
+endmenu
