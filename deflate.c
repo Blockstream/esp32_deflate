@@ -111,7 +111,7 @@ int deflate_init_read_uncompressed(struct deflate_ctx* const ctx, const size_t t
 
 static int write_compressed(struct deflate_ctx* const ctx, uint8_t* const compressed, const size_t len)
 {
-    if (!ctx || !compressed || !len || ctx->compressed_stream_reader || !ctx->uncompressed || !ctx->nout
+    if (!ctx || !compressed || !len || ctx->compressed_stream_reader || !ctx->nout
         || !ctx->uncompressed_stream_writer) {
         return DEFLATE_ERROR;
     }
