@@ -65,7 +65,7 @@ struct deflate_ctx {
  * client is requesting more uncompressed data.  The 'reader' function should call ctx.write_compressed()
  * with more compressed input.
  * This init function has to be called one time before any uncompressed data is requested.*/
-int deflate_init_read_uncompressed(struct deflate_ctx* const ctx, size_t total_compressed, size_t total_uncompressed,
+int deflate_init_read_uncompressed(struct deflate_ctx* const ctx, size_t total_compressed,
     int (*reader)(void* ctx), void* ctx_cb);
 
 /* Function to initialise the decompressor for a 'push compressed' pattern - ie. the client can call
@@ -73,7 +73,7 @@ int deflate_init_read_uncompressed(struct deflate_ctx* const ctx, size_t total_c
  * The 'writer' function passed is invoked to write the uncompressed data, called by the decompressor
  * when sufficient uncompressed output data is available.
  * This init function has to be called one time before any compressed data is fed. */
-int deflate_init_write_compressed(struct deflate_ctx* const ctx, size_t total_compressed, size_t total_uncompressed,
+int deflate_init_write_compressed(struct deflate_ctx* const ctx, size_t total_compressed,
     int (*writer)(void*, uint8_t* const, size_t), void* ctx_cb);
 
 /* Call this function when you want to read some uncompressed data from the decompressor.

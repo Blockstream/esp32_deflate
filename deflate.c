@@ -4,7 +4,7 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 static void deflate_init(
-    struct deflate_ctx* const ctx, const size_t total_compressed, const size_t total_uncompressed, void* ctx_cb)
+    struct deflate_ctx* const ctx, const size_t total_compressed, void* ctx_cb)
 {
     ctx->status = TINFL_STATUS_NEEDS_MORE_INPUT;
     ctx->nout = ctx->uncompressed;
@@ -97,13 +97,13 @@ static int _decompress(void* const ctx, uint8_t* const compressed, const size_t 
     return decompress((struct deflate_ctx*)ctx, compressed, len, true);
 }
 
-int deflate_init_read_uncompressed(struct deflate_ctx* const ctx, const size_t total_compressed, const size_t total_uncompressed,
+int deflate_init_read_uncompressed(struct deflate_ctx* const ctx, const size_t total_compressed,
     int (*reader)(void* ctx), void* ctx_cb)
 {
-    if (!ctx || !reader || !total_compressed || !total_uncompressed) {
+    if (!ctx || !reader || !total_compressed) {
         return DEFLATE_ERROR;
     }
-    deflate_init(ctx, total_compressed, total_uncompressed, ctx_cb);
+    deflate_init(ctx, total_compressed, ctx_cb);
     ctx->compressed_stream_reader = reader;
     ctx->write_compressed = _decompress;
     return DEFLATE_OK;
@@ -135,13 +135,13 @@ static int _write_compressed(void* const ctx, uint8_t* const compressed, const s
     return write_compressed((struct deflate_ctx*)ctx, compressed, len);
 }
 
-int deflate_init_write_compressed(struct deflate_ctx* const ctx, const size_t total_compressed, const size_t total_uncompressed,
+int deflate_init_write_compressed(struct deflate_ctx* const ctx, const size_t total_compressed,
     int (*writer)(void*, uint8_t* const, size_t), void* const ctx_cb)
 {
-    if (!ctx || !writer || !total_compressed || !total_uncompressed) {
+    if (!ctx || !writer || !total_compressed) {
         return DEFLATE_ERROR;
     }
-    deflate_init(ctx, total_compressed, total_uncompressed, ctx_cb);
+    deflate_init(ctx, total_compressed, ctx_cb);
     ctx->uncompressed_stream_writer = writer;
     ctx->write_compressed = _write_compressed;
     return DEFLATE_OK;
