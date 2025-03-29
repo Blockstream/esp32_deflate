@@ -201,3 +201,4 @@ int read_uncompressed(struct deflate_ctx* const ctx, uint8_t* const uncompressed
     }
     return DEFLATE_OK;
 }
+#undef MIN

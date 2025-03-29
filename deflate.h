@@ -2,15 +2,16 @@
 #define DEFLATE_H
 
 #include <sdkconfig.h>
-#ifndef ESP_PLATFORM
-#error "Error, ESP_PLATFORM required"
-#endif
 
+#ifdef ESP_PLATFORM
 #include "esp_idf_version.h"
 #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 0, 0)
 #include <miniz.h> /* TINFL_LZ_DICT_SIZE */
 #else
 #include <esp32/rom/miniz.h> /* TINFL_LZ_DICT_SIZE */
+#endif
+#else
+#include <miniz.h> /* TINFL_LZ_DICT_SIZE */
 #endif
 
 #include <stdbool.h>
